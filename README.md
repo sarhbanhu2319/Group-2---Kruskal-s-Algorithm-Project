@@ -24,8 +24,14 @@ Data Structure: Disjoint Set Union (DSU) for efficient find and union operations
 **Group 2 Members & Roles**
 As a group of five, the responsibilities were divided as follows:
 
-1. **[Salma Banhu ] (Coordinator):** Combined all code in VS Code and hosted the project on the web.
-2. **[Shammah ] (Designer):** Created the buttons and the website layout.
-3. **[Member 3] (Logic):** Programmed the sorting of the weights.
-4. **[Member 4] (Visuals):** Handled the color-coded animations for the graph.
-5. **[Member 5] (Tester):** Verified the algorithm results and wrote the project description.
+1. **Salma Banhu N02530449A - (Coordinator):** Combined all code in VS Code and hosted the project on the web.
+2. **Engelbert Mazvidza N02532521F - (Designer):** Created the buttons and the website layout.
+3. **Tapiwa Manhambara N02529762W - (Logic):** Programmed the sorting of the weights.
+4. **Pride Mambure N02530212W - (Visuals):** Handled the color-coded animations for the graph.
+5. **Natalie Nyamupfukudza N02533795F - (Tester):** Verified the algorithm results and wrote the project description.
+
+
+
+
+3.
+4.                  5  .     
