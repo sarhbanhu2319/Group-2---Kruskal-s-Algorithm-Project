@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Group 2 Kruskal's MST Visualizer</title>
+    <style>
+        body { font-family: poppins; text-align: center; background: #f4f4f9; }
+        canvas { border: 2px solid #333; background: white; cursor: crosshair; }
+        .controls { margin: 20px; padding: 15px; background: #fff; display: inline-block; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+        #status { font-weight: bold; color: #d9534f; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Group 2 Kruskal's MST Visualizer</h2>
+    <div class="controls">
+        <p>Click to add <b>Nodes</b>. Connect them to create <b>Edges</b>.</p>
+        <button onclick="runKruskal()">Run Kruskal's Algorithm</button>
+        <button onclick="resetGraph()" style="background:#6c757d;">Reset</button>
+        <div id="status">Total MST Weight: 0</div>
+    </div>
+    <br>
+    <canvas id="graphCanvas" width="800" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+        let edges = [];
+        let selectedNode = null;
+
+        // 1. Interactive Graph Building
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Check if clicking an existing node
+            const clickedNode = nodes.find(n => Math.hypot(n.x - x, n.y - y) < 20);
+            
+            if (clickedNode) {
+                if (selectedNode && selectedNode !== clickedNode) {
+                    const weight = Math.floor(Math.hypot(selectedNode.x - clickedNode.x, selectedNode.y - clickedNode.y) / 10);
+                    edges.push({ u: selectedNode, v: clickedNode, weight, color: '#ccc' });
+                    selectedNode = null;
+                } else {
+                    selectedNode = clickedNode;
+                }
+            } else {
+                nodes.push({ x, y, id: nodes.length });
+            }
+            draw();
+        });
+
+        // 2. DSU (Disjoint Set Union) Logic
+        class DSU {
+            constructor(n) {
+                this.parent = Array.from({ length: n }, (_, i) => i);
+            }
+            find(i) {
+                if (this.parent[i] === i) return i;
+                return this.parent[i] = this.find(this.parent[i]);
+            }
+            union(i, j) {
+                const rootI = this.find(i);
+                const rootJ = this.find(j);
+                if (rootI !== rootJ) {
+                    this.parent[rootI] = rootJ;
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        // 3. The Algorithm Visualization
+        async function runKruskal() {
+            if (edges.length === 0) return;
+            
+            // Sort edges by weight
+            edges.sort((a, b) => a.weight - b.weight);
+            const dsu = new DSU(nodes.length);
+            let totalWeight = 0;
+
+            for (let edge of edges) {
+                edge.color = '#ffc107'; // Highlights "considering"
+                draw();
+                await new Promise(r => setTimeout(r, 600)); // Delay for visual effect
+
+                if (dsu.union(edge.u.id, edge.v.id)) {
+                    edge.color = '#28a745'; // Green for "Included"
+                    totalWeight += edge.weight;
+                } else {
+                    edge.color = '#dc3545'; // Red for "Cycle/Discarded"
+                }
+                document.getElementById('status').innerText = `Total MST Weight: ${totalWeight}`;
+                draw();
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            edges.forEach(e => {
+                ctx.beginPath();
+                ctx.moveTo(e.u.x, e.u.y);
+                ctx.lineTo(e.v.x, e.v.y);
+                ctx.strokeStyle = e.color;
+                ctx.lineWidth = e.color === '#28a745' ? 4 : 2;
+                ctx.stroke();
+                ctx.fillStyle = "black";
+                ctx.fillText(e.weight, (e.u.x + e.v.x)/2, (e.u.y + e.v.y)/2);
+            });
+            nodes.forEach(n => {
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, 15, 0, Math.PI * 2);
+                ctx.fillStyle = (selectedNode === n) ? "#007bff" : "#333";
+                ctx.fill();
+                ctx.fillStyle = "white";
+                ctx.fillText(n.id, n.x - 4, n.y + 4);
+            });
+        }
+
+        function resetGraph() {
+            nodes = []; edges = []; selectedNode = null;
+            document.getElementById('status').innerText = "Total MST Weight: 0";
+            draw();
+        }
+    </script>
+</body>
+</html>
