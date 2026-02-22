@@ -29,9 +29,3 @@ As a group of five, the responsibilities were divided as follows:
 3. **Tapiwa Manhambara N02529762W - (Logic):** Programmed the sorting of the weights.
 4. **Pride Mambure N02530212W - (Visuals):** Handled the color-coded animations for the graph.
 5. **Natalie Nyamupfukudza N02533795F - (Tester):** Verified the algorithm results and wrote the project description.
-
-
-
-
-3.
-4.                  5  .     
