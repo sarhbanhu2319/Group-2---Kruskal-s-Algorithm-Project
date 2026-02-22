@@ -11,7 +11,8 @@ Live Metrics: Real-time calculation of the total MST weight.
 
 **How to Run**
 Locally: Open index.html in any modern web browser.
-Web: Visit our live deployment at: [https://sarhbanhu2319.github.io/Group-2---Kruskal-s-Algorithm-Project/]
+Web: Visit our live deployment at: 
+[https://sarhbanhu2319.github.io/Group-2---Kruskal-s-Algorithm-Project/]
 
 **Technical Implementation**
 Language: JavaScript (Vanilla)
