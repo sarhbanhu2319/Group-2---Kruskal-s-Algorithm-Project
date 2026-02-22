@@ -1,4 +1,4 @@
-# Group-2-Kruskal-s-Algorithm-Project
+# Group-2-Kruskal's-Algorithm-Project
 Project Overview
 This project implements Kruskal’s Algorithm  as an interactive web application. It is designed to find the Minimum Spanning Tree (MST) of a user-defined weighted graph. This project fulfills the requirement for a group of five (5) to deploy a technical solution via the web.
 
